@@ -33,5 +33,4 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 # Finder (MacOS) folder config
 .DS_Store
 
-service-account-credentials.json
 study-assistant-459107-account-credentials.json
