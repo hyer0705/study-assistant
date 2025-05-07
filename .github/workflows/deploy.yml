@@ -1,0 +1,40 @@
+name: Deploy Discord Bot with Bun
+
+on:
+  push:
+    branches:
+      - develop/*
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest # 또는 특정 버전으로 고정할 수 있습니다
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Lint and Build
+        run: |
+          bun lint
+          bun build  # `build` 명령이 필요 없을 경우 이 줄은 생략 가능
+
+      - name: Decode and write credentials
+        env:
+          CREDENTIALS: ${{ secrets.CREDENTIALS }}
+        run: echo $CREDENTIALS | base64 -d > study-assistant-459107-account-credentials.json
+
+      - name: Deploy
+        env:
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+          SHEET_ID: ${{ secrets.SHEET_ID }}
+        run: |
+          bun run index.js  # 앱의 엔트리 파일 명칭에 맞게 수정
