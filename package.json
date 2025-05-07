@@ -1,12 +1,25 @@
 {
   "name": "study-assistant",
-  "module": "index.ts",
+  "module": "index.js",
   "type": "module",
   "private": true,
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "eslint": "^8.57.1",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^10.1.2",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-prettier": "^5.4.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "prettier": "^3.5.3"
   },
   "peerDependencies": {
     "typescript": "^5"
+  },
+  "dependencies": {
+    "discord.js": "^14.19.3",
+    "googleapis": "^148.0.0"
   }
 }
