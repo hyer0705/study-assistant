@@ -27,7 +27,7 @@ const fetchProblems = async (auth) => {
 
   const currentDate = new Date();
   return rows
-    .filter((problem) => currentDate <= new Date(problem[0]))
+    .filter((problem) => currentDate < new Date(problem[0]))
     .sort((a, b) => a[0].localeCompare(b[0]))
     .slice(0, 3);
 };
