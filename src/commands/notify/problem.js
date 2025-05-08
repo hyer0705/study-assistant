@@ -7,7 +7,7 @@ const authorizeGoogleSheets = async () =>
   new google.auth.GoogleAuth({
     keyFile: path.join(
       __dirname,
-      "../../study-assistant-459107-account-credentials.json",
+      "../../../study-assistant-459107-account-credentials.json",
     ),
     scopes: ["https://www.googleapis.com/auth/spreadsheets.readonly"],
   });

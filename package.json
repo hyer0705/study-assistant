@@ -4,8 +4,8 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "start": "bun run index.js",
-    "build": "bun build index.js --outdir ./dist --target node"
+    "start": "bun run ./src/index.js",
+    "build": "bun build ./src/index.js --outdir ./dist --target node"
   },
   "devDependencies": {
     "@types/bun": "latest",
