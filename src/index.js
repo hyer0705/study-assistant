@@ -43,8 +43,5 @@ for (const file of eventFiles) {
   }
 }
 
-(async () => {
-  healthCheck.listen(8080);
-
-  await client.login(Bun.env.DISCORD_TOKEN);
-})();
+healthCheck.listen(8080);
+client.login(Bun.env.DISCORD_TOKEN);
