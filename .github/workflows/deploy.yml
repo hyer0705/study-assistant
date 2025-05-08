@@ -3,7 +3,7 @@ name: Deploy Discord Bot with Bun
 on:
   push:
     branches:
-      - develop/*
+      - master
   workflow_dispatch:
 
 jobs:
