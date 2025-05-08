@@ -52,6 +52,7 @@ const rest = new REST().setToken(Bun.env.DISCORD_TOKEN);
     );
   } catch (error) {
     // And of course, make sure you catch and log any errors!
+    console.log("으악!!!");
     console.error(error);
   }
 })();
