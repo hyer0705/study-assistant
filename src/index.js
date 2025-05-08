@@ -2,6 +2,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 
 const { Client, Collection, GatewayIntentBits } = require("discord.js");
+const { healthCheck } = require("./healthCheck.js");
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
@@ -42,4 +43,8 @@ for (const file of eventFiles) {
   }
 }
 
-client.login(Bun.env.DISCORD_TOKEN);
+(async () => {
+  healthCheck.listen(8080);
+
+  await client.login(Bun.env.DISCORD_TOKEN);
+})();
