@@ -1,0 +1,72 @@
+import path from 'node:path';
+
+import { CommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { google, Auth } from 'googleapis';
+
+type ProblemRow = [string, string, string, string, string];
+
+const authorizeGoogleSheets = async (): Promise<Auth.GoogleAuth> =>
+  new google.auth.GoogleAuth({
+    keyFile: path.join(
+      __dirname,
+      '../../../study-assistant-459107-account-credentials.json',
+    ),
+    scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
+  });
+
+const fetchProblems = async (auth: Auth.GoogleAuth): Promise<ProblemRow[]> => {
+  const sheets = google.sheets({ version: 'v4', auth });
+
+  const res = await sheets.spreadsheets.values.get({
+    spreadsheetId: Bun.env.SHEET_ID,
+    range: '2025!A2:Z',
+  });
+
+  const rows: string[][] = res.data.values || [];
+
+  const currentDate = new Date();
+  const processedRows: ProblemRow[] = rows
+    .filter((row): row is ProblemRow => row.length === 5)
+    .filter(problem => currentDate < new Date(problem[0]))
+    .sort((a, b) => a[0].localeCompare(b[0]))
+    .slice(0, 3);
+
+  if (processedRows.length === 0) {
+    throw new Error('No data found...');
+  }
+
+  return processedRows;
+};
+
+const formatReplyMessage = (problems: ProblemRow[]): string => {
+  let replyMessage = `[다음주 풀이할 문제]\n\n발표자: ${problems[0][1]}\n\n`;
+  for (const [_1, _2, name, link, _5] of problems) {
+    replyMessage += `- [${name}](${link})\n`;
+  }
+
+  return replyMessage;
+};
+
+export default {
+  data: new SlashCommandBuilder()
+    .setName('문제공지')
+    .setDescription('다음주 풀이할 문제 공지.'),
+  async execute(interaction: CommandInteraction): Promise<void> {
+    const auth = await authorizeGoogleSheets();
+
+    try {
+      const problems = await fetchProblems(auth);
+      if (problems.length <= 0) {
+        interaction.reply('검색된 데이터가 없습니다...');
+        return;
+      }
+
+      const replyMessage = formatReplyMessage(problems);
+
+      await interaction.reply(replyMessage);
+    } catch (error) {
+      console.error('Error accessing Google Sheets:', error);
+      await interaction.reply('데이터를 가져오는 중 오류가 발생했습니다.');
+    }
+  },
+};

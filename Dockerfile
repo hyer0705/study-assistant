@@ -14,8 +14,7 @@ COPY src ./src
 
 # 설치 및 빌드
 RUN bun install
-RUN bun run deploy
 RUN bun run build
 
 # 기본 실행 명령을 통해 환경 변수 디코딩 및 앱 실행
-CMD [ "sh", "-c", "echo $CREDENTIALS | base64 -d > study-assistant-459107-account-credentials.json && bun ./dist/index.js" ]
+CMD [ "sh", "-c", "echo $CREDENTIALS | base64 -d > study-assistant-459107-account-credentials.json && bun ./build/index.js" ]

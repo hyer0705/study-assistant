@@ -2,7 +2,13 @@
  * Prettier 옵션
  * - https://prettier.io/docs/en/options.html
  */
-module.exports = {
+
+// prettier.config.js, .prettierrc.js, prettier.config.mjs, or .prettierrc.mjs
+/**
+ * @see https://prettier.io/docs/configuration
+ * @type {import("prettier").Config}
+ */
+const config = {
   printWidth: 80, // 한 줄 최대 문자 수
   tabWidth: 2, // 들여쓰기 시, 탭 너비
   useTabs: false, // 스페이스 대신 탭 사용
@@ -14,3 +20,5 @@ module.exports = {
   proseWrap: "never", // 마크다운 포매팅 제외
   endOfLine: "auto", // 개행문자 유지 (혼합일 경우, 첫 줄 개행문자로 통일)
 };
+
+export default config;
