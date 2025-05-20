@@ -64,6 +64,16 @@ export default {
       const replyMessage = formatReplyMessage(problems);
 
       await interaction.reply(replyMessage);
+
+      const message = await interaction.fetchReply();
+      if (!message) {
+        throw new Error('메시지가 가져오지 못했습니다...');
+      }
+
+      const res = await message.pin();
+      if (!res) {
+        throw new Error('pin 처리 결과가 없습니다...');
+      }
     } catch (error) {
       console.error('Error accessing Google Sheets:', error);
       await interaction.reply('데이터를 가져오는 중 오류가 발생했습니다.');
