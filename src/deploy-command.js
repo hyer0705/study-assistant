@@ -10,7 +10,7 @@ const __dirname = path.dirname(__filename);
 
 const commands = [];
 // Grab all the command folders from the commands directory you created earlier
-const foldersPath = path.join(__dirname, "commands");
+const foldersPath = path.join(__dirname, 'commands');
 const commandFolders = fs.readdirSync(foldersPath);
 
 for (const folder of commandFolders) {
@@ -18,16 +18,16 @@ for (const folder of commandFolders) {
   const commandsPath = path.join(foldersPath, folder);
   const commandFiles = fs
     .readdirSync(commandsPath)
-    .filter((file) => file.endsWith(".js"));
+    .filter(file => file.endsWith('.js'));
   // Grab the SlashCommandBuilder#toJSON() output of each command's data for deployment
   for (const file of commandFiles) {
     const filePath = path.join(commandsPath, file);
     const { default: command } = await import(filePath);
 
-    if ("data" in command && "execute" in command) {
+    if ('data' in command && 'execute' in command) {
       commands.push(command.data.toJSON());
     } else {
-      console.log(
+      console.warn(
         `[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`,
       );
     }
@@ -58,7 +58,6 @@ const rest = new REST().setToken(Bun.env.DISCORD_TOKEN);
     );
   } catch (error) {
     // And of course, make sure you catch and log any errors!
-    console.log("으악!!!");
     console.error(error);
   }
 })();
