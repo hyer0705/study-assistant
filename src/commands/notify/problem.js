@@ -1,7 +1,7 @@
-const path = require("node:path");
+import path from 'node:path';
 
-const { SlashCommandBuilder } = require("discord.js");
-const { google } = require("googleapis");
+import { SlashCommandBuilder } from 'discord.js';
+import { google } from 'googleapis';
 
 const authorizeGoogleSheets = async () =>
   new google.auth.GoogleAuth({
@@ -41,7 +41,7 @@ const formatReplyMessage = (problems) => {
   return replyMessage;
 };
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName("문제공지")
     .setDescription("다음주 풀이할 문제 공지."),

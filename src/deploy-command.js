@@ -1,7 +1,7 @@
-const { REST, Routes } = require("discord.js");
+import { REST, Routes } from 'discord.js';
 
-const fs = require("node:fs");
-const path = require("node:path");
+import fs from 'node:fs';
+import path from 'node:path';
 
 const commands = [];
 // Grab all the command folders from the commands directory you created earlier

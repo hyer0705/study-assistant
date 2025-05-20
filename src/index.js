@@ -1,8 +1,8 @@
-const fs = require("node:fs");
-const path = require("node:path");
+import fs from 'node:fs';
+import path from 'node:path'
 
-const { Client, Collection, GatewayIntentBits } = require("discord.js");
-const { healthCheck } = require("./healthCheck.js");
+import { Client, Collection, GatewayIntentBits} from 'discord.js';
+import { healthCheck } from './healthCheck.js'
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
