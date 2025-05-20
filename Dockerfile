@@ -14,7 +14,7 @@ COPY src ./src
 
 # 설치 및 빌드
 RUN bun install
-RUN bun run deploy
+# RUN bun run deploy
 RUN bun run build
 
 # 기본 실행 명령을 통해 환경 변수 디코딩 및 앱 실행
