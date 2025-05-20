@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "start": "bun run ./src/index.js",
-    "deploy": "bun run ./src/deploy-command.js",
+    "deploy": "bun run ./src/deploy-command.ts",
     "build": "bun build ./src/index.ts --outdir ./build --target bun"
   },
   "devDependencies": {
