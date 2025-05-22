@@ -1,21 +1,10 @@
-import path from 'node:path';
-
 import { CommandInteraction, SlashCommandBuilder } from 'discord.js';
-import { google, Auth } from 'googleapis';
+import { getSheetsClient } from '../../auth/index';
 
 type ProblemRow = [string, string, string, string, string];
 
-const authorizeGoogleSheets = async (): Promise<Auth.GoogleAuth> =>
-  new google.auth.GoogleAuth({
-    keyFile: path.join(
-      __dirname,
-      '../../../study-assistant-459107-account-credentials.json',
-    ),
-    scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
-  });
-
-const fetchProblems = async (auth: Auth.GoogleAuth): Promise<ProblemRow[]> => {
-  const sheets = google.sheets({ version: 'v4', auth });
+const fetchProblems = async (): Promise<ProblemRow[]> => {
+  const sheets = await getSheetsClient();
 
   const res = await sheets.spreadsheets.values.get({
     spreadsheetId: Bun.env.SHEET_ID,
@@ -52,10 +41,8 @@ export default {
     .setName('문제공지')
     .setDescription('다음주 풀이할 문제 공지.'),
   async execute(interaction: CommandInteraction): Promise<void> {
-    const auth = await authorizeGoogleSheets();
-
     try {
-      const problems = await fetchProblems(auth);
+      const problems = await fetchProblems();
       if (problems.length <= 0) {
         interaction.reply('검색된 데이터가 없습니다...');
         return;

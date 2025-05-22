@@ -1,11 +1,20 @@
 {
   "compilerOptions": {
-    "outDir": "./dist",
-    "allowJs": true,
-    "target": "es5",
-    "allowImportingTsExtensions": true,
-    "noEmit": true,
-    "esModuleInterop": true
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "allowImportingTsExtensions": false,
+    "strict": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./build",
+    "rootDir": "./src",
+    "declaration": true,
+    "sourceMap": true,
+    "resolveJsonModule": true
   },
-  "include": ["./src/**/*"]
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules", "build"]
 }
