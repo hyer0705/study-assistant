@@ -1,10 +1,9 @@
 import { healthCheck } from './healthCheck.ts';
 
 import commands from './commands/index.ts';
+import { InteractionCreate, Ready } from './events/index.ts';
 
-import interactionCreate from './events/interactionCreate.ts';
-import ready from './events/ready.ts';
-import { ExtendedClient } from './types/ExtendedClient.ts';
+import { ExtendedClient } from './types/index.ts';
 
 const client = new ExtendedClient();
 
@@ -18,9 +17,9 @@ for (const command of commands) {
   }
 }
 
-client.once('ready', ready.execute);
+client.once('ready', Ready.execute);
 
-client.on('interactionCreate', interactionCreate.execute);
+client.on('interactionCreate', InteractionCreate.execute);
 
 healthCheck.listen(8080);
 client.login(Bun.env.DISCORD_TOKEN);
