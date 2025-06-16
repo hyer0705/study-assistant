@@ -4,8 +4,6 @@ import { getSheetsClient } from '../../auth/index';
 type ProblemRow = [string, string, string, string, string];
 
 const fetchProblems = async (): Promise<ProblemRow[]> => {
-  const COUNT_PROBLEM = 4;
-
   const sheets = await getSheetsClient();
 
   const res = await sheets.spreadsheets.values.get({
@@ -18,15 +16,17 @@ const fetchProblems = async (): Promise<ProblemRow[]> => {
   const currentDate = new Date();
   const processedRows: ProblemRow[] = rows
     .filter((row): row is ProblemRow => row.length === 5)
-    .filter(problem => currentDate < new Date(problem[0]))
-    .sort((a, b) => a[0].localeCompare(b[0]))
-    .slice(0, COUNT_PROBLEM);
+    .filter(problem => currentDate < new Date(problem[0]));
 
   if (processedRows.length === 0) {
     throw new Error('No data found...');
   }
 
-  return processedRows;
+  const minDate = processedRows.map(problem => problem[0]).sort()[0];
+
+  const nextProblems = processedRows.filter(problem => problem[0] === minDate);
+
+  return nextProblems;
 };
 
 const formatReplyMessage = (problems: ProblemRow[]): string => {
