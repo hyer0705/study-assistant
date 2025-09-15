@@ -1,4 +1,4 @@
-import { Command } from './Command.ts';
-import { ExtendedClient } from './ExtendedClient.ts';
+import { Command } from './Command';
+import { ExtendedClient } from './ExtendedClient';
 
 export { Command, ExtendedClient };

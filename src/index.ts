@@ -1,9 +1,9 @@
-import { healthCheck } from './healthCheck.ts';
+import { healthCheck } from './healthCheck';
 
-import commands from './commands/index.ts';
-import { InteractionCreate, Ready } from './events/index.ts';
+import commands from './commands/index';
+import { InteractionCreate, Ready } from './events/index';
 
-import { ExtendedClient } from './types/index.ts';
+import { ExtendedClient } from './types/index';
 
 const client = new ExtendedClient();
 

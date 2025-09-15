@@ -1,6 +1,6 @@
 import { REST, Routes } from 'discord.js';
 
-import beforeCommands from './commands/index.ts';
+import beforeCommands from './commands/index';
 
 // Grab all the command folders from the commands directory you created earlier
 const commands = [];
@@ -16,7 +16,7 @@ for (const command of beforeCommands) {
 }
 
 // Construct and prepare an instance of the REST module
-const rest = new REST().setToken(Bun.env.DISCORD_TOKEN);
+const rest = new REST().setToken(Bun.env.DISCORD_TOKEN!);
 
 // and deploy your commands!
 (async () => {
@@ -28,8 +28,8 @@ const rest = new REST().setToken(Bun.env.DISCORD_TOKEN);
     // The put method is used to fully refresh all commands in the guild with the current set
     const res = await rest.put(
       Routes.applicationGuildCommands(
-        Bun.env.DISCORD_CLIENT_ID,
-        Bun.env.DISCORD_GUILD_ID,
+        Bun.env.DISCORD_CLIENT_ID!,
+        Bun.env.DISCORD_GUILD_ID!,
       ),
       { body: commands },
     );

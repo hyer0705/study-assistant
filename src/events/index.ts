@@ -1,4 +1,4 @@
-import InteractionCreate from './interactionCreate.ts';
-import Ready from './ready.ts';
+import InteractionCreate from './interactionCreate';
+import Ready from './ready';
 
 export { InteractionCreate, Ready };

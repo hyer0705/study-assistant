@@ -1,5 +1,5 @@
-import { Command } from '../types/index.ts';
-import notifyProblem from './notify/problem.js';
+import { Command } from '../types/index';
+import notifyProblem from './notify/problem';
 
 const availableCommands: Command[] = [notifyProblem];
 

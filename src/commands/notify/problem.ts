@@ -16,7 +16,12 @@ const fetchProblems = async (): Promise<ProblemRow[]> => {
   const currentDate = new Date();
   const processedRows: ProblemRow[] = rows
     .filter((row): row is ProblemRow => row.length === 5)
-    .filter(problem => currentDate < new Date(problem[0]));
+    .filter(problem => {
+      console.log(currentDate, new Date(problem[0]));
+      console.log(currentDate <= new Date(problem[0]));
+
+      return currentDate <= new Date(problem[0]);
+    });
 
   if (processedRows.length === 0) {
     throw new Error('No data found...');
