@@ -1,7 +1,7 @@
 import { CommandInteraction, SlashCommandBuilder } from 'discord.js';
 import { getSheetsClient } from '../../auth/index';
 
-type ProblemRow = [string, string, string, string, string];
+type ProblemRow = [string, string, string];
 
 const fetchProblems = async (): Promise<ProblemRow[]> => {
   const sheets = await getSheetsClient();
@@ -15,7 +15,7 @@ const fetchProblems = async (): Promise<ProblemRow[]> => {
 
   const currentDate = new Date();
   const processedRows: ProblemRow[] = rows
-    .filter((row): row is ProblemRow => row.length === 5)
+    .filter((row): row is ProblemRow => row.length === 3)
     .filter(problem => {
       console.log(currentDate, new Date(problem[0]));
       console.log(currentDate < new Date(problem[0]));
