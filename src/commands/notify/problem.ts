@@ -8,7 +8,7 @@ const fetchProblems = async (): Promise<ProblemRow[]> => {
 
   const res = await sheets.spreadsheets.values.get({
     spreadsheetId: Bun.env.SHEET_ID,
-    range: '2025!A2:Z',
+    range: '2026!A2:Z',
   });
 
   const rows: string[][] = res.data.values || [];
@@ -37,7 +37,7 @@ const fetchProblems = async (): Promise<ProblemRow[]> => {
 const formatReplyMessage = (problems: ProblemRow[]): string => {
   let replyMessage = `[다음주 풀이할 문제]\n\n`;
 
-  for (const [_1, _2, name, link, _5] of problems) {
+  for (const [_1, name, link] of problems) {
     replyMessage += `- [${name}](${link})\n`;
   }
 
